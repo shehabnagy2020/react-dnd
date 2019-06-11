@@ -1,26 +1,42 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { useState } from 'react';
+import Target from './components/Target';
 
-function App() {
+const App = () => {
+
+  const [firstList, setFirstList] = useState([
+    { id: 1, content: 'item 1' },
+    { id: 2, content: 'item 2' },
+    { id: 3, content: 'item 3' },
+    { id: 4, content: 'item 4' },
+    { id: 5, content: 'item 5' },
+  ])
+
+  const [secondList, setSecondList] = useState([{ id: 6, content: 'item 6' }]);
+
+  const handleDelete = (comp) => {
+    if (firstList.find(elem => elem.id === comp.id)) {
+      setFirstList(
+        firstList.filter(item => item.id !== comp.id)
+      );
+      setSecondList([...secondList, comp])
+      console.log('from first list')
+    } else {
+      setSecondList(
+        secondList.filter(item => item.id !== comp.id)
+      );
+      setFirstList([...firstList, comp])
+      console.log('from second list')
+    }
+  }
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+    <article className="list-container">
+      <section className="list-content">
+        <Target list={firstList} handleDelete={handleDelete} />
+        <Target list={secondList} handleDelete={handleDelete} />
+      </section>
+    </article>
+  )
 }
 
 export default App;
