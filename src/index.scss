@@ -13,25 +13,56 @@ code {
 }
 
 .container {
-  width: 100vw;
-  height: 100vh;
+  width: 90vw;
+  height: 90vh;
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color: #eee;
+  padding: 10px;
+  margin: 0 auto;
 }
 
 .list {
   // width: 500px;
+  flex-flow: row wrap;
+  flex-grow: 1;
 
   .list-item {
     border: 1px dashed gray;
-    padding: 10px 50px;
-    margin-bottom: 1rem;
+    // padding: 0 !important;
+    // margin: 0 !important;
     background-color: transparent;
     cursor: move;
     text-align: center;
     font-size: 1.5rem;
-    text-transform: uppercase
+    text-transform: uppercase;
+
+    &.active {
+      border: 1px solid #000;
+      page-break-after: always;
+      // &::after {
+      //   content: "";
+      //   width: 100%;
+      //   background: #f00;
+      //   height: 5px;
+      //   display: block;
+      // }
+    }
+  }
+}
+
+.form {
+  display: flex;
+  flex-flow: column wrap;
+  width: 200px;
+
+  .form-input {
+    padding: 10px;
+    margin: 0 0 20px 0;
+  }
+
+  button {
+    padding: 10px;
+
   }
 }

@@ -1,7 +1,8 @@
 import React, { useRef } from 'react'
 import { useDrag, useDrop } from 'react-dnd';
+import * as $ from 'jquery'
 
-const Item = ({ index, id, content, moveItem }) => {
+const Item = ({ index, id, content, moveItem, style, setForm }) => {
 
     const ref = useRef(null);
     const [{ opacity }, drag] = useDrag({
@@ -18,7 +19,6 @@ const Item = ({ index, id, content, moveItem }) => {
             }
             const dragIndex = item.index
             const hoverIndex = index
-            // Don't replace items with themselves
             if (dragIndex === hoverIndex) {
                 return
             }
@@ -28,9 +28,18 @@ const Item = ({ index, id, content, moveItem }) => {
         }
     })
 
+    const handleFocus = (e) => {
+        let elem = $(e.target);
+        elem.addClass('active').siblings().removeClass('active');
+        setForm({
+            ...style,
+            active: index
+        })
+    }
+
     drag(drop(ref))
     return (
-        <div ref={ref} style={{ opacity }} className="list-item" >{content}</div>
+        <div onClick={handleFocus} ref={ref} style={{ opacity, ...style }} className="list-item" > {content}</div>
     )
 }
 
